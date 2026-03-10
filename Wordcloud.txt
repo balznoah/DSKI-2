@@ -1,0 +1,29 @@
+
+from wordcloud import WordCloud, STOPWORDS
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
+texts = df["text"].astype(str)
+
+# Eigene Stopwörter ergänzen (optional)
+my_stopwords = set(STOPWORDS)
+my_stopwords.update(["subject", "re", "fw"])  # Beispiel
+
+# Gesamten Text zusammenführen
+all_text = " ".join(texts)
+
+# Wordcloud erzeugen
+wc = WordCloud(
+    width=1200,
+    height=600,
+    background_color="white",
+    stopwords=my_stopwords,
+    collocations=False
+).generate(all_text)
+
+# Plot
+plt.figure(figsize=(15, 8))
+plt.imshow(wc, interpolation="bilinear")
+plt.axis("off")
+plt.show()
